@@ -11,18 +11,16 @@ class GameObject {
 
   constructor(
     name: string,
-    elem: HTMLImageElement,
     anim: Animator,
     setupFunc: Function,
     updateFunc: Function,
-    imgName: string,
-    classCSS: string
+    imgName: string
   ) {
     this._name = name;
-    this._elem = elem; // sua cai nay thanh createElement
+    this._elem = this.createElement(name, imgName);
     this._transform = new Transform(this._elem);
     this._collider = new Collider(this._elem);
-    this._spriteRenderer = new SpriteRenderer(this._elem, imgName, classCSS)
+    this._spriteRenderer = new SpriteRenderer(this._elem, imgName, name);
     this._rb = new RigidBody(this._elem);
     this._anim = anim;
     this._setupFunc = setupFunc;
@@ -30,21 +28,64 @@ class GameObject {
   }
 
   private createElement(name: string, imgName: string): HTMLImageElement {
-    const objectElem = document.createElement("img")
-    objectElem.dataset[name] = "true"
-    const imgPath = Loader.Instance.getImagePath(imgName)
-    if (imgPath) objectElem.src = imgPath
-    objectElem.classList.add(name)
-    World.Instance.elem.append(objectElem)
-    return objectElem
+    const objectElem = document.createElement("img");
+    objectElem.dataset[name] = "true";
+    const imgPath = Loader.Instance.getImagePath(imgName);
+    if (imgPath) objectElem.src = imgPath;
+    objectElem.classList.add(name);
+    World.Instance.elem.append(objectElem);
+    return objectElem;
+  }
+
+  public setCSSPlayer(
+    left: number = 1,
+    height: number = 30,
+    moveUnit: number = 1
+  ) {
+    PhysicsEngine.setCustomProperty(this._elem, "--bottom", 0);
+    PhysicsEngine.setCustomProperty(this._elem, "position", "absolute");
+    PhysicsEngine.setCustomProperty(this._elem, "left", `${left}%`);
+    PhysicsEngine.setCustomProperty(this._elem, "height", `${height}%`);
+    PhysicsEngine.setCustomProperty(
+      this._elem,
+      "bottom",
+      `calc(var(--bottom) * ${moveUnit}%)`
+    );
+  }
+
+  public setCSSObstacle(
+    bottom: number = 0,
+    height: number = 30,
+    moveUnit: number = 1,
+    moveLeft: boolean = true
+  ) {
+    PhysicsEngine.setCustomProperty(this._elem, "position", "absolute");
+    if (moveLeft)
+      PhysicsEngine.setCustomProperty(
+        this._elem,
+        "left",
+        `calc(var(--left) * ${moveUnit}%)`
+      );
+    else
+      PhysicsEngine.setCustomProperty(
+        this._elem,
+        "right",
+        `calc(var(--right) * ${moveUnit}%)`
+      );
+    PhysicsEngine.setCustomProperty(this._elem, "height", `${height}%`);
+    PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
   }
 
   public setup() {
-    this._setupFunc()
+    this._setupFunc();
   }
 
   public update() {
-    this._updateFunc()
+    this._updateFunc();
+  }
+
+  public get name() {
+    return this._name;
   }
 
   public get elem() {
