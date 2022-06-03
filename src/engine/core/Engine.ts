@@ -40,6 +40,8 @@ class Engine {
     }
 
     this._delta = time - this._lastTime;
+    // for each scene, update their game object
+    // this._scenes.forEach(s => s.update())
     this._gameObjects.forEach((gameObject) => gameObject.update());
     this._logicInUpdate();
     this._lastTime = time;
