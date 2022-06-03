@@ -18,7 +18,7 @@ namespace GameManager {
   const inputManager = new InputManager();
   const loader = new Loader();
 
-  let speedScale: number;
+  export let speedScale: number;
   let score: number;
 
   function startLogic() {

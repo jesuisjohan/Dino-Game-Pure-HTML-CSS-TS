@@ -5,16 +5,16 @@ class GameObject {
   private _collider: Collider;
   private _spriteRenderer: SpriteRenderer;
   private _rb: RigidBody;
-  private _anim: Animator;
+  private _anim: Animator | null = null;
   private _setupFunc: Function;
   private _updateFunc: Function;
 
   constructor(
     name: string,
-    anim: Animator,
+    imgName: string,
     setupFunc: Function,
     updateFunc: Function,
-    imgName: string
+    anim?: Animator
   ) {
     this._name = name;
     this._elem = this.createElement(name, imgName);
@@ -22,7 +22,7 @@ class GameObject {
     this._collider = new Collider(this._elem);
     this._spriteRenderer = new SpriteRenderer(this._elem, imgName, name);
     this._rb = new RigidBody(this._elem);
-    this._anim = anim;
+    if (anim) this._anim = anim;
     this._setupFunc = setupFunc;
     this._updateFunc = updateFunc;
   }

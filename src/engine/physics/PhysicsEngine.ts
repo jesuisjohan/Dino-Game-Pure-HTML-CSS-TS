@@ -14,19 +14,27 @@ class PhysicsEngine {
   }
 
   public moveHorizontal(
-    isRight: boolean = false,
     xVelocity: number,
-    speedScale: number
+    speedScale: number,
+    isRight: boolean = false
   ) {
-    PhysicsEngine.incrementCustomProperty(
-      this._rb.elem,
-      "--left",
-      this._rb.mass *
-        Engine.Instance.delta *
-        speedScale *
-        xVelocity *
-        (isRight ? 1 : -1)
-    );
+    if (isRight) {
+      PhysicsEngine.incrementCustomProperty(
+        this._rb.elem,
+        "--right",
+        this._rb.mass * Engine.Instance.delta * speedScale * xVelocity
+      );
+    } else {
+      PhysicsEngine.incrementCustomProperty(
+        this._rb.elem,
+        "--left",
+        this._rb.mass * Engine.Instance.delta * speedScale * xVelocity * -1
+      );
+    }
+  }
+
+  public moveLeftHorizontalAt(value: number = 600) {
+    PhysicsEngine.incrementCustomProperty(this._rb.elem, "--left", value);
   }
 
   public startJumping(jumpSpeed: number, gravityScale?: number) {
