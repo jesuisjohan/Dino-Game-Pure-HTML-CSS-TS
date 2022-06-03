@@ -76,6 +76,33 @@ class GameObject {
     PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
   }
 
+  public setCSSGround(
+    width: number = 300,
+    bottom: number = 0,
+    moveUnit: number = 1,
+    moveLeft: boolean = true
+  ) {
+    if (moveLeft) {
+      PhysicsEngine.setCustomProperty(this._elem, "--left", 0);
+      PhysicsEngine.setCustomProperty(
+        this._elem,
+        "left",
+        `calc(var(--left) * ${moveUnit}%)`
+      );
+    } else {
+      PhysicsEngine.setCustomProperty(this._elem, "--right", 0);
+      PhysicsEngine.setCustomProperty(
+        this._elem,
+        "right",
+        `calc(var(--right) * ${moveUnit}%)`
+      );
+    }
+    PhysicsEngine.setCustomProperty(this._elem, "position", "absolute");
+    PhysicsEngine.setCustomProperty(this._elem, "width", `${width}%`);
+    PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
+    PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
+  }
+
   public setup() {
     this._setupFunc();
   }
