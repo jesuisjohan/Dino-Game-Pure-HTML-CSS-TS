@@ -13,6 +13,7 @@ class Ground {
       this.setup,
       this.update
     );
+    this._gameObject.setGroundProperties()
   }
 
   setup() {

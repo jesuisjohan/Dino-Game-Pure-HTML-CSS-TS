@@ -134,4 +134,8 @@ class GameObject {
   public get animation() {
     return this._anim;
   }
+
+  public set animation(animation: Animator | null) {
+    this._anim = animation
+  }
 }
