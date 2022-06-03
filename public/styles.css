@@ -1,0 +1,89 @@
+*, *::before, *::after {
+  /* include padding and border */
+  box-sizing: border-box;
+  /* not highlight text */
+  user-select: none;
+}
+
+body {
+  /* get rid of all the margins */
+  margin: 0;
+  /* put everything in center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* 
+  vh: Relative to 1% of the height of the viewport* 
+  viewport = browser window size
+  */
+  min-height: 100vh;
+}
+
+.world {
+  /* The overflow is clipped and the rest is invisible */
+  overflow: hidden;
+  /* Everything will be absolutely positioned in this world */
+  position: relative;
+  /* width: 100%;
+  height: 300px; */
+}
+
+.score {
+  /* Like above */
+  position: absolute;
+  /* vmin: Relative to 1% of viewport's* smaller dimension */
+  font-size: 3vmin;
+  right: 1vmin;
+  top: 1vmin;
+}
+
+.start-screen {
+  position: absolute;
+  font-size: 5vmin;
+  /* Set to top left */
+  top: 50%;
+  left: 50%;
+  /* Move it backward both in x and y position so it's in the center */
+  transform: translate(-50%, -50%);
+}
+
+/* When we start the game, we gonna add a hide class to start-screen 
+so it doesn't show up anymore
+*/
+.hide {
+  display: none;
+}
+
+.ground {
+  --left: 0;
+  position: absolute;
+  width: 300%;
+  bottom: 0;
+  /* some stuff to move ground to the bottom of screen */
+  left: calc(var(--left) * 1%)
+}
+
+.dino {
+  --bottom: 0;
+  position: absolute;
+  left: 1%;
+  height: 30%;
+  /* some stuff to move ground to the bottom of screen */
+  bottom: calc(var(--bottom) * 1%);
+}
+
+.cactus {
+  position: absolute;
+  left: calc(var(--left) * 1%);
+  height: 30%;
+  /* Cactus is gonna touching the bottom of the screen */
+  bottom: 0;
+}
+
+.bird {
+  position: absolute;
+  left: calc(var(--left) * 1%);
+  height: 15%;
+  /* Cactus is gonna touching the bottom of the screen */
+  bottom: 70%;
+}
