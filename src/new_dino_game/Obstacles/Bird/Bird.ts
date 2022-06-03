@@ -9,7 +9,6 @@ class Bird {
   private _name: string = "bird";
   private _gameObject: GameObject;
 
-
   constructor() {
     Loader.Instance.storeImage(this._spritePath, this._spriteName);
     Loader.Instance.storeImage("imgs/Bird0", "bird0");
@@ -20,8 +19,13 @@ class Bird {
       this.setup,
       this.update
     );
-    
-    this._gameObject.animation = new Animator(this._gameObject.elem, this.BIRD_FRAME_TIME, GameManager.speedScale, ["bird0", "bird1"])
+
+    this._gameObject.animation = new Animator(
+      this._gameObject.elem,
+      this.BIRD_FRAME_TIME,
+      GameManager.speedScale,
+      ["bird0", "bird1"]
+    );
   }
 
   setup() {}
