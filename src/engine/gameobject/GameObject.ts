@@ -37,7 +37,7 @@ class GameObject {
     return objectElem;
   }
 
-  public setCSSPlayer(
+  public setPlayerProperties(
     left: number = 1,
     height: number = 30,
     moveUnit: number = 1
@@ -53,7 +53,7 @@ class GameObject {
     );
   }
 
-  public setCSSObstacle(
+  public setObstacleProperties(
     bottom: number = 0,
     height: number = 30,
     moveUnit: number = 1,
@@ -76,7 +76,7 @@ class GameObject {
     PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
   }
 
-  public setCSSGround(
+  public setGroundProperties(
     width: number = 300,
     bottom: number = 0,
     moveUnit: number = 1,
