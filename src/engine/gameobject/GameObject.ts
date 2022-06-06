@@ -1,4 +1,4 @@
-class GameObject {
+class GameObject extends BaseGameObject {
   private _name: string;
   private _transform: Transform;
   private _collider: BoxCollider;
@@ -12,6 +12,7 @@ class GameObject {
     imgName: string,
     anim?: Animator
   ) {
+    super();
     this._name = name;
     this._transform = transform;
     this._collider = new BoxCollider();
@@ -20,7 +21,7 @@ class GameObject {
     if (anim) this._anim = anim;
   }
 
-  public setup() {}
+  public start() {}
 
   public update() {}
 

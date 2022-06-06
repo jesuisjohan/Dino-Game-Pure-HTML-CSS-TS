@@ -31,7 +31,7 @@ class Engine {
 
   start() {
     this._script.start();
-    this._gameObjects.forEach((gameObject) => gameObject.setup());
+    this._gameObjects.forEach((gameObject) => gameObject.start());
     window.requestAnimationFrame(this.update);
   }
 
