@@ -8,7 +8,8 @@ const WORLD_HEIGHT = 30;
 const SPEED_SCALE_INCREASE = 0.00001;
 const BIRD_SPAWNING_SCORE = 40;
 
-const worldElem: HTMLElement = document.querySelector<HTMLElement>("[data-world]")!;
+const worldElem: HTMLElement =
+  document.querySelector<HTMLElement>("[data-world]")!;
 const scoreElem: HTMLElement =
   document.querySelector<HTMLElement>("[data-score]")!;
 const startScreenElem: HTMLElement = document.querySelector<HTMLElement>(
@@ -98,3 +99,23 @@ function setPixelToWorldScale() {
   worldElem.style.width = `${WORLD_WIDTH * worldToPixelScale}px`;
   worldElem.style.height = `${WORLD_HEIGHT * worldToPixelScale}px`;
 }
+
+class NewInputManager {
+  keys: string[];
+  constructor() {
+    this.keys = [];
+    window.addEventListener("keydown", (e) => {
+      if (
+        (e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "Space") &&
+        this.keys.indexOf(e.key) == -1
+      )
+        this.keys.push(e.key);
+    });
+    window.addEventListener("keyup", (e) => {
+      if (e.key == "ArrowUp" || e.key == "ArrowDown" || e.key == "Space")
+        this.keys.splice(this.keys.indexOf(e.key), 1);
+    });
+  }
+}
+
+const inputManager = new NewInputManager()

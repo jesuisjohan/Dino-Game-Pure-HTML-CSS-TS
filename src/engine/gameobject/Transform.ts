@@ -1,23 +1,22 @@
 class Transform {
-  private _elem: HTMLImageElement;
+  private _x: number;
+  private _y: number;
 
-  constructor(elem: HTMLImageElement) {
-    this._elem = elem;
+  constructor(x: number = 0, y: number = 0) {
+    this._x = x;
+    this._y = y;
   }
 
-  public setX(x: number) {
-    PhysicsEngine.setCustomProperty(this._elem, "--left", x);
+  public get x() {
+    return this._x;
   }
-
-  public getX() {
-    return PhysicsEngine.getCustomProperty(this._elem, "--left");
+  public get y() {
+    return this._y;
   }
-
-  public setHeight(height: number) {
-    PhysicsEngine.setCustomProperty(this._elem, "height", height);
+  public set x(x: number) {
+    this._x = x;
   }
-
-  public getHeight() {
-    return PhysicsEngine.getCustomProperty(this._elem, "height");
+  public set y(y: number) {
+    this._y = y;
   }
 }

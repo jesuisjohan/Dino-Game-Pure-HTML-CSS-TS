@@ -4,14 +4,18 @@ class Engine {
   private _delta: number;
   private _script: Script;
   private _gameObjects: GameObject[] = [];
+
+  public static get Instance() {
+    if (!Engine._instance) Engine._instance = new Engine();
+    return Engine._instance;
+  }
+
   /**
    *
-   * @param anyKeyToStart Automatically start or manually start game
+   * @param script Script to manage game
+   * @param anyKeyToStart automatically start game
    */
-  constructor(
-    script: Script,
-    anyKeyToStart: boolean = true
-  ) {
+  constructor(script: Script = new Script(), anyKeyToStart: boolean = true) {
     Engine._instance = this;
     this._lastTime = null;
     this._delta = 0;
@@ -26,7 +30,7 @@ class Engine {
   }
 
   start() {
-    this._script.start()
+    this._script.start();
     this._gameObjects.forEach((gameObject) => gameObject.setup());
     window.requestAnimationFrame(this.update);
   }

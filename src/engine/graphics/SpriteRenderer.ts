@@ -3,13 +3,9 @@ class SpriteRenderer {
 
   constructor(elem: HTMLImageElement, imgName: string, classCssStyle?: string) {
     this._elem = elem;
-    let imgPath = Loader.Instance.getImage(imgName);
-    if (imgPath) {
-      this._elem.src = imgPath;
-    }
-    if (classCssStyle) {
-      this.setClassCSS(classCssStyle);
-    }
+    const img = Loader.Instance.getImage(imgName);
+    if (img) this._elem = img;
+    if (classCssStyle) this.setClassCSS(classCssStyle);
   }
 
   public setClassCSS(name: string) {
@@ -17,9 +13,9 @@ class SpriteRenderer {
   }
 
   public changeSprite(imgName: string): boolean {
-    let path = Loader.Instance.getImage(imgName);
-    if (path == undefined) return false;
-    this._elem.src = path;
+    const img = Loader.Instance.getImage(imgName);
+    if (img == undefined) return false;
+    this._elem = img;
     return true;
   }
 }

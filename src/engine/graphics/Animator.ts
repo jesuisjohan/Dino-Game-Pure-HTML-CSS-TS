@@ -25,7 +25,7 @@ class Animator {
   updateAnim() {
     if (this._currentFrameTime >= this._FRAME_TIME) {
       this._frame = (this._frame + 1) % this._frameCount;
-      this._elem.src = Loader.Instance.getImage(this._animFrames[this._frame])!;
+      this._elem = Loader.Instance.getImage(this._animFrames[this._frame])!;
       this._currentFrameTime -= this._FRAME_TIME;
     }
     this._currentFrameTime += Engine.Instance.delta * this._speedScale;

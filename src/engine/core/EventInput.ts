@@ -10,7 +10,6 @@ class EventInput {
 
   constructor(keyCode: string, func: Function, type: EventTypeEnum) {
     this._keyCode = keyCode;
-
     this._func = func;
     this._type = type;
   }

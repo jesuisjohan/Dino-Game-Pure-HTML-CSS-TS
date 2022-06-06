@@ -7,6 +7,7 @@ class World {
   private _width: number;
   private _height: number;
   private _canvas: HTMLCanvasElement;
+  private _context: CanvasRenderingContext2D;
 
   public static get Instance() {
     if (World._instance == null) {
@@ -19,7 +20,14 @@ class World {
     this._width = width;
     this._height = height;
 
-    this._canvas = document.querySelector('canvas')!;
+    const canvasQuery = document.querySelector<HTMLCanvasElement>("canvas");
+    if (canvasQuery != null) {
+      this._canvas = canvasQuery;
+    } else {
+      this._canvas = document.createElement("canvas");
+      document.body.appendChild(this._canvas);
+    }
+    this._context = this._canvas.getContext("2d")!;
 
     this.setPixelToWorldScale();
     window.addEventListener("resize", this.setPixelToWorldScale);
@@ -33,10 +41,14 @@ class World {
       worldToPixelScale = window.innerHeight / this._height;
     }
     this._canvas.width = this._width * worldToPixelScale;
-    this._canvas.height = this._height * worldToPixelScale
+    this._canvas.height = this._height * worldToPixelScale;
   }
 
-  public get canvasContext() {
-    return this._canvas.getContext('2d');
+  public get context() {
+    return this._context
+  }
+
+  public clear() {
+    this._context.clearRect(0, 0, this._width, this._height);
   }
 }
