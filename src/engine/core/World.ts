@@ -4,9 +4,9 @@
  */
 class World {
   private static _instance: World;
-  private _worldElem: HTMLElement;
   private _width: number;
   private _height: number;
+  private _canvas: HTMLCanvasElement;
 
   public static get Instance() {
     if (World._instance == null) {
@@ -18,8 +18,10 @@ class World {
   constructor(width: number = 100, height: number = 30) {
     this._width = width;
     this._height = height;
-    this.createWorld();
-    this._worldElem = document.querySelector<HTMLElement>("[data-world]")!;
+
+    this._canvas = document.querySelector('canvas')!;
+    const c = this._canvas.getContext('2d');
+
     this.setPixelToWorldScale();
     window.addEventListener("resize", this.setPixelToWorldScale);
   }
@@ -31,29 +33,7 @@ class World {
     } else {
       worldToPixelScale = window.innerHeight / this._height;
     }
-    this._worldElem.style.width = `${this._width * worldToPixelScale}px`;
-    this._worldElem.style.height = `${this._height * worldToPixelScale}px`;
-  }
-
-  public get elem(): HTMLElement {
-    return this._worldElem;
-  }
-
-  private createWorld() {
-    if (this._worldElem) return;
-    this.createWorldHTML();
-    this.createWorldCSS();
-  }
-
-  private createWorldHTML() {
-    this._worldElem = document.createElement("div");
-    this._worldElem.dataset.world = "true";
-    this._worldElem.classList.add("world");
-    document.body.append(this._worldElem);
-  }
-
-  private createWorldCSS() {
-    this._worldElem.style.setProperty("overflow", "hidden");
-    this._worldElem.style.setProperty("position", "relative");
+    this._canvas.width = this._width * worldToPixelScale;
+    this._canvas.height = this._height * worldToPixelScale
   }
 }
