@@ -7,7 +7,7 @@ class World {
   private _worldElem: HTMLElement;
   private _width: number;
   private _height: number;
-  
+
   public static get Instance() {
     if (World._instance == null) {
       World._instance = new World();
@@ -22,9 +22,6 @@ class World {
     this._worldElem = document.querySelector<HTMLElement>("[data-world]")!;
     this.setPixelToWorldScale();
     window.addEventListener("resize", this.setPixelToWorldScale);
-    
-    if (World._instance != null) return World._instance;
-    World._instance = this
   }
 
   private setPixelToWorldScale() {
@@ -41,7 +38,6 @@ class World {
   public get elem(): HTMLElement {
     return this._worldElem;
   }
-
 
   private createWorld() {
     if (this._worldElem) return;

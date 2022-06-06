@@ -7,23 +7,33 @@ class Engine {
 
   private _gameObjects: GameObject[] = [];
 
+  public static get Instance() {
+    if (!Engine._instance) Engine._instance = new Engine();
+    return this._instance;
+  }
   /**
-   * 
+   *
    * @param logicInStart Set score, speedScale etc.
    * @param logicInUpdate Check lose
    * @param anyKeyToStart Automatically start or manually start game
    */
-  constructor(logicInStart: Function, logicInUpdate: Function, anyKeyToStart: boolean = true) {
+  constructor(
+    logicInStart: Function = new Function(),
+    logicInUpdate: Function = new Function(),
+    anyKeyToStart: boolean = true
+  ) {
     Engine._instance = this;
     this._lastTime = null;
     this._delta = 0;
     this._logicInStart = logicInStart;
     this._logicInUpdate = logicInUpdate;
-    if (anyKeyToStart) this.pressAnyKeyToStart()
+    if (anyKeyToStart) this.pressAnyKeyToStart();
   }
 
   pressAnyKeyToStart() {
-    document.addEventListener(EventType.KeyDown, this.start, { once: true });
+    document.addEventListener(EventTypeEnum.KeyDown, this.start, {
+      once: true,
+    });
   }
 
   start() {
@@ -50,10 +60,6 @@ class Engine {
 
   public get delta() {
     return this._delta;
-  }
-
-  public static get Instance() {
-    return this._instance;
   }
 
   addGameObject(gameObject: GameObject) {
