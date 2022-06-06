@@ -20,7 +20,6 @@ class World {
     this._height = height;
 
     this._canvas = document.querySelector('canvas')!;
-    const c = this._canvas.getContext('2d');
 
     this.setPixelToWorldScale();
     window.addEventListener("resize", this.setPixelToWorldScale);
@@ -35,5 +34,9 @@ class World {
     }
     this._canvas.width = this._width * worldToPixelScale;
     this._canvas.height = this._height * worldToPixelScale
+  }
+
+  public get canvasContext() {
+    return this._canvas.getContext('2d');
   }
 }

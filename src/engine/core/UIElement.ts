@@ -48,7 +48,9 @@ class UIElement {
     elem.style.setProperty("position", "absolute");
     elem.style.setProperty("font-size", `${fontSize}vmin`);
     elem.style.cssText += cssText;
+
     World.Instance.elem.append(elem);
+    
     if (isHidden) {
       elem.classList.add("hide");
     }

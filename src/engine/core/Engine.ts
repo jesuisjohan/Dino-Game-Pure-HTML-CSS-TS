@@ -2,31 +2,20 @@ class Engine {
   private static _instance: Engine;
   private _lastTime: number | null;
   private _delta: number;
-  private _logicInStart: Function;
-  private _logicInUpdate: Function;
-
+  private _script: Script;
   private _gameObjects: GameObject[] = [];
-
-  public static get Instance() {
-    if (!Engine._instance) Engine._instance = new Engine();
-    return this._instance;
-  }
   /**
    *
-   * @param logicInStart Set score, speedScale etc.
-   * @param logicInUpdate Check lose
    * @param anyKeyToStart Automatically start or manually start game
    */
   constructor(
-    logicInStart: Function = new Function(),
-    logicInUpdate: Function = new Function(),
+    script: Script,
     anyKeyToStart: boolean = true
   ) {
     Engine._instance = this;
     this._lastTime = null;
     this._delta = 0;
-    this._logicInStart = logicInStart;
-    this._logicInUpdate = logicInUpdate;
+    this._script = script;
     if (anyKeyToStart) this.pressAnyKeyToStart();
   }
 
@@ -37,7 +26,7 @@ class Engine {
   }
 
   start() {
-    this._logicInStart();
+    this._script.start()
     this._gameObjects.forEach((gameObject) => gameObject.setup());
     window.requestAnimationFrame(this.update);
   }
@@ -53,7 +42,7 @@ class Engine {
     // for each scene, update their game object
     // this._scenes.forEach(s => s.update())
     this._gameObjects.forEach((gameObject) => gameObject.update());
-    this._logicInUpdate();
+    this._script.update();
     this._lastTime = time;
     window.requestAnimationFrame(this.update);
   }

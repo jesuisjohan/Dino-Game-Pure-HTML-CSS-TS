@@ -5,7 +5,7 @@
 
 class Loader {
   private static _instance: Loader;
-  private _images: Map<string, string>;
+  private _images: Map<string, HTMLImageElement>;
 
   public static get Instance() {
     if (Loader._instance == null) Loader._instance = new Loader();
@@ -13,14 +13,16 @@ class Loader {
   }
 
   constructor() {
-    this._images = new Map<string, string>();
+    this._images = new Map<string, HTMLImageElement>();
   }
 
   storeImage(path: string, newName: string) {
-    this._images.set(newName, path);
+    const image = new Image();
+    image.src = path;
+    this._images.set(newName, image);
   }
 
-  getImagePath(name: string): string | undefined {
+  getImage(name: string): HTMLImageElement | undefined {
     return this._images.get(name);
   }
 }

@@ -28,79 +28,15 @@ class GameObject {
   }
 
   private createElement(name: string, imgName: string): HTMLImageElement {
-    const objectElem = document.createElement("img");
+    let objectElem = document.createElement("img");
     objectElem.dataset[name] = "true";
-    const imgPath = Loader.Instance.getImagePath(imgName);
-    if (imgPath) objectElem.src = imgPath;
+    const img = Loader.Instance.getImage(imgName);
+    if (img) objectElem = img;
     objectElem.classList.add(name);
-    World.Instance.elem.append(objectElem);
+
+    // World.Instance.elem.append(objectElem);
+
     return objectElem;
-  }
-
-  public setPlayerProperties(
-    left: number = 1,
-    height: number = 30,
-    moveUnit: number = 1
-  ) {
-    PhysicsEngine.setCustomProperty(this._elem, "--bottom", 0);
-    PhysicsEngine.setCustomProperty(this._elem, "position", "absolute");
-    PhysicsEngine.setCustomProperty(this._elem, "left", `${left}%`);
-    PhysicsEngine.setCustomProperty(this._elem, "height", `${height}%`);
-    PhysicsEngine.setCustomProperty(
-      this._elem,
-      "bottom",
-      `calc(var(--bottom) * ${moveUnit}%)`
-    );
-  }
-
-  public setObstacleProperties(
-    bottom: number = 0,
-    height: number = 30,
-    moveUnit: number = 1,
-    moveLeft: boolean = true
-  ) {
-    PhysicsEngine.setCustomProperty(this._elem, "position", "absolute");
-    if (moveLeft)
-      PhysicsEngine.setCustomProperty(
-        this._elem,
-        "left",
-        `calc(var(--left) * ${moveUnit}%)`
-      );
-    else
-      PhysicsEngine.setCustomProperty(
-        this._elem,
-        "right",
-        `calc(var(--right) * ${moveUnit}%)`
-      );
-    PhysicsEngine.setCustomProperty(this._elem, "height", `${height}%`);
-    PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
-  }
-
-  public setGroundProperties(
-    width: number = 300,
-    bottom: number = 0,
-    moveUnit: number = 1,
-    moveLeft: boolean = true
-  ) {
-    if (moveLeft) {
-      PhysicsEngine.setCustomProperty(this._elem, "--left", 0);
-      PhysicsEngine.setCustomProperty(
-        this._elem,
-        "left",
-        `calc(var(--left) * ${moveUnit}%)`
-      );
-    } else {
-      PhysicsEngine.setCustomProperty(this._elem, "--right", 0);
-      PhysicsEngine.setCustomProperty(
-        this._elem,
-        "right",
-        `calc(var(--right) * ${moveUnit}%)`
-      );
-    }
-    PhysicsEngine.setCustomProperty(this._elem, "position", "absolute");
-    PhysicsEngine.setCustomProperty(this._elem, "width", `${width}%`);
-    PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
-    PhysicsEngine.setCustomProperty(this._elem, "bottom", `${bottom}%`);
   }
 
   public setup() {
